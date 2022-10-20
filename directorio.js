@@ -23,10 +23,10 @@ function pintar()
     if(amigos.length>0)
     {
         lista.innerHTML="";
-        amigos.forEach((contacto)=>
+        amigos.forEach((contacto,index)=>
         {
             let amigo=document.createElement("div");
-            amigo.innerHTML=`<p>${contacto.nombre}</p><button class="muestradetalles"><input type="hidden" value="${contacto.telefono}"/>Detalles<button>Borrar</button></button>`;
+            amigo.innerHTML=`<p>${contacto.nombre}</p><button class="muestradetalles"><input type="hidden" value="${contacto.telefono}"/>Detalles</button><button id="botoneliminar1" class="eliminarcontacto" Indice="${index}">Borrar</button>`;
             lista.appendChild(amigo);
         });
 
@@ -37,7 +37,17 @@ function pintar()
             element.addEventListener("click",()=>
             {
                 showdetalles(element.children[0].value);
-            })
+            });
+        }
+        botones=document.getElementsByClassName("eliminarcontacto");
+        for (let i = 0; i < botones.length; i++)
+        {
+            const element = botones[i];
+            element.addEventListener("click",()=>
+            {
+                amigos.splice(element.getAttribute("Indice"),1);
+                pintar();
+            });
         }
     }
     else
@@ -59,9 +69,18 @@ function showdetalles(tel) {
         <p><span>Correo: </span>${amigo.correo}</p>
         <button>Cerrar</button>`
     detalles.classList.remove("oculto");
+    quitardetalles();
 }
 
-
+function quitardetalles()
+{
+    let cerrar=document.getElementById("detallesamigazo");
+    cerrar.addEventListener("click",quitar=>
+    {
+        let detalles=document.getElementById("detallesamigazo");
+        detalles.classList.add("oculto");
+    })
+}
 
 btncancelar.addEventListener("click",()=>
 {
@@ -94,18 +113,28 @@ btnguardar.addEventListener("click",(event)=>
     }
 })
 
-// let contacto=
-    // {
-    //     nombre:formulario["nombre"].value,
-    //     telefono:formulario["telefono"].value,
-    //     correo:formulario["correo"].value,
-    //     foto:formulario["foto"].value
-    // };
-    
-    // amigos.push(contacto);
-    // limpiar();
-    // pintar();
-    // event.preventDefault();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
